@@ -16,11 +16,11 @@ const VEHICLE_DATA = {
     rating: 4.8, trips: 1840,
     desc: 'India\'s classic highway companion — smooth, fuel-efficient and perfectly sized for couples or small families on long drives.',
     images: [
-      'https://images.unsplash.com/photo-1590362891991-f776e747a588?w=900&q=80',
-      'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=900&q=80',
-      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=900&q=80',
-      'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=900&q=80',
-      'https://images.unsplash.com/photo-1511919884226-fd3cad34687c?w=900&q=80'
+      'https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=900&q=80',
+      'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=900&q=80',
+      'https://images.unsplash.com/photo-1592198084033-aade902d1aae?w=900&q=80',
+      'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=900&q=80',
+      'https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=900&q=80'
     ],
     specs: [
       { icon: 'seat', label: 'Seating',      val: '4 Passengers' },
@@ -41,11 +41,11 @@ const VEHICLE_DATA = {
     rating: 4.9, trips: 2210,
     desc: 'Step up the comfort — spacious cabin, premium leather interiors and a whisper-quiet ride. Ideal for business trips and special occasions.',
     images: [
-      'https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=900&q=80',
-      'https://images.unsplash.com/photo-1493238792000-8113da705763?w=900&q=80',
-      'https://images.unsplash.com/photo-1502161254066-6c74afbf07aa?w=900&q=80',
-      'https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=900&q=80',
-      'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=900&q=80'
+      'https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=900&q=80',
+      'https://images.unsplash.com/photo-1617469165786-8007eda3caa7?w=900&q=80',
+      'https://images.unsplash.com/photo-1536700503339-1e771d4c635d?w=900&q=80',
+      'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=900&q=80',
+      'https://images.unsplash.com/photo-1493238792000-8113da705763?w=900&q=80'
     ],
     specs: [
       { icon: 'seat', label: 'Seating',      val: '4 Passengers'  },
@@ -67,11 +67,11 @@ const VEHICLE_DATA = {
     rating: 4.9, trips: 3120,
     desc: 'India\'s favourite family mover — powerful diesel engine, roomy 7-seater cabin and smooth commanding ride on any terrain.',
     images: [
-      'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=900&q=80',
+      'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=900&q=80',
+      'https://images.unsplash.com/photo-1551830820-330a71b99659?w=900&q=80',
       'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=900&q=80',
-      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=900&q=80',
-      'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=900&q=80',
-      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=900&q=80'
+      'https://images.unsplash.com/photo-1506015391300-4802dc74ee37?w=900&q=80',
+      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80'
     ],
     specs: [
       { icon: 'seat', label: 'Seating',      val: '7 Passengers'  },
@@ -93,10 +93,10 @@ const VEHICLE_DATA = {
     desc: 'The pinnacle of SUV luxury — powerful 4WD, premium leather cabin and commanding road presence for those who demand the best.',
     images: [
       'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=900&q=80',
-      'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=900&q=80',
-      'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=900&q=80',
+      'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=900&q=80',
       'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=900&q=80',
-      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=900&q=80'
+      'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=900&q=80',
+      'https://images.unsplash.com/photo-1551830820-330a71b99659?w=900&q=80'
     ],
     specs: [
       { icon: 'seat', label: 'Seating',      val: '7 Passengers'  },
@@ -118,11 +118,11 @@ const VEHICLE_DATA = {
     rating: 4.7, trips: 1560,
     desc: 'The sweet spot between a sedan and a full SUV — ideal for joint families and small group outings with great fuel efficiency.',
     images: [
-      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80',
       'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=900&q=80',
-      'https://images.unsplash.com/photo-1590362891991-f776e747a588?w=900&q=80',
-      'https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=900&q=80',
-      'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=900&q=80'
+      'https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=900&q=80',
+      'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=900&q=80',
+      'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=900&q=80',
+      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80'
     ],
     specs: [
       { icon: 'seat', label: 'Seating',      val: '7 Passengers'  },
@@ -327,9 +327,20 @@ function injectModalHTML() {
 
             <div class="vm-pricing-body" id="vmPricingBody"></div>
 
+            <!-- ★ ADVANCE PAYMENT BANNER ★ -->
+            <div class="vm-advance-banner">
+              <div class="vm-advance-icon">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.4"/><path d="M1 7h14" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="5" cy="11" r="1" fill="currentColor"/><path d="M9 11h4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+              </div>
+              <div class="vm-advance-content">
+                <p class="vm-advance-title">Advance to Confirm Booking</p>
+                <p class="vm-advance-desc"><span id="vmAdvanceAmt">&#8377;--</span>&nbsp;<span class="vm-advance-pct-badge" id="vmAdvancePctBadge">10%</span>&nbsp;advance secures your slot. Balance due on journey day.</p>
+              </div>
+            </div>
+
             <div class="vm-pricing-note">
               <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.3"/><path d="M6.5 6v3M6.5 4.5v.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
-              Tolls & parking stated upfront. No hidden fees.
+              Tolls &amp; parking stated upfront. No hidden fees.
             </div>
 
             <a href="#" class="vm-book-btn" id="vmBookBtn">
@@ -454,6 +465,15 @@ function openVehicleModal(key) {
     <div class="vm-price-row"><span>Minimum Fare</span><strong>₹${V.minFare}</strong></div>
     <div class="vm-price-row"><span>Driver Charges</span><strong>Included</strong></div>
     <div class="vm-price-row"><span>Toll / Parking</span><strong>Extra (stated upfront)</strong></div>`;
+
+  /* ── Advance Payment (Tier-Based) ── */
+  const ADVANCE_RATES = { sedan: 0.10, suv: 0.15, muv: 0.15, tempo: 0.20, bus: 0.20 };
+  const advRate    = ADVANCE_RATES[V.bookType] || 0.10;
+  const advanceAmt = Math.round(V.priceDay * advRate);
+  const el_advAmt  = document.getElementById('vmAdvanceAmt');
+  const el_advPct  = document.getElementById('vmAdvancePctBadge');
+  if (el_advAmt) el_advAmt.textContent = `₹${advanceAmt.toLocaleString()}`;
+  if (el_advPct) el_advPct.textContent = `${Math.round(advRate * 100)}%`;
 
   /* ── Book buttons ── */
   const bookingURL = `booking.html?type=${V.bookType}&vehicle=${encodeURIComponent(V.name)}`;
