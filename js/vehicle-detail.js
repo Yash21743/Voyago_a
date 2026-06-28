@@ -19,14 +19,14 @@ const VEHICLES = {
     trips:       1840,
     kmLakh:      28,
     ratingAvg:   '4.8',
-    heroImg:     'https://images.unsplash.com/photo-1590362891991-f776e747a588?w=1920&q=85',
+    heroImg:     'https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=1920&q=85',
     description: 'India\'s most trusted compact sedan — perfect for solo travellers and couples. Fuel-efficient, nippy in city traffic, and surprisingly comfortable on long highways.',
     images: [
-      'https://images.unsplash.com/photo-1590362891991-f776e747a588?w=900&q=80',
-      'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=900&q=80',
-      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=900&q=80',
-      'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=900&q=80',
-      'https://images.unsplash.com/photo-1511919884226-fd3cad34687c?w=900&q=80'
+      'https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=900&q=80',
+      'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=900&q=80',
+      'https://images.unsplash.com/photo-1592198084033-aade902d1aae?w=900&q=80',
+      'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=900&q=80',
+      'https://images.unsplash.com/photo-1560958089-b8a1929cea89?w=900&q=80'
     ],
     specs: [
       { icon: 'seat',        label: 'Seating',      value: '4 Passengers' },
@@ -67,14 +67,14 @@ const VEHICLES = {
     trips:       2210,
     kmLakh:      34,
     ratingAvg:   '4.9',
-    heroImg:     'https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=1920&q=85',
+    heroImg:     'https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=1920&q=85',
     description: 'Step up the comfort with Honda City — spacious cabin, premium interiors and a whisper-quiet ride. Ideal for business trips and milestone occasions.',
     images: [
-      'https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=900&q=80',
-      'https://images.unsplash.com/photo-1493238792000-8113da705763?w=900&q=80',
-      'https://images.unsplash.com/photo-1502161254066-6c74afbf07aa?w=900&q=80',
-      'https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=900&q=80',
-      'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=900&q=80'
+      'https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=900&q=80',
+      'https://images.unsplash.com/photo-1617469165786-8007eda3caa7?w=900&q=80',
+      'https://images.unsplash.com/photo-1536700503339-1e771d4c635d?w=900&q=80',
+      'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=900&q=80',
+      'https://images.unsplash.com/photo-1493238792000-8113da705763?w=900&q=80'
     ],
     specs: [
       { icon: 'seat',        label: 'Seating',      value: '4 Passengers' },
@@ -116,14 +116,14 @@ const VEHICLES = {
     trips:       3120,
     kmLakh:      52,
     ratingAvg:   '4.9',
-    heroImg:     'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=1920&q=85',
+    heroImg:     'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=1920&q=85',
     description: 'India\'s favourite family mover — powerful diesel engine, roomy 7-seater cabin and smooth commanding ride on any terrain. Perfect for family tours and group travel.',
     images: [
-      'https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=900&q=80',
+      'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=900&q=80',
+      'https://images.unsplash.com/photo-1551830820-330a71b99659?w=900&q=80',
       'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=900&q=80',
-      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=900&q=80',
-      'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=900&q=80',
-      'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=900&q=80'
+      'https://images.unsplash.com/photo-1506015391300-4802dc74ee37?w=900&q=80',
+      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80'
     ],
     specs: [
       { icon: 'seat',        label: 'Seating',      value: '7 Passengers' },
@@ -168,10 +168,10 @@ const VEHICLES = {
     description: 'The Ertiga strikes a perfect balance between a compact car and a full-sized SUV. Fuel-efficient, comfortable 7-seater that handles narrow lanes and mountain roads with ease.',
     images: [
       'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=900&q=80',
-      'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=900&q=80',
-      'https://images.unsplash.com/photo-1590362891991-f776e747a588?w=900&q=80',
-      'https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=900&q=80',
-      'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=900&q=80'
+      'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=900&q=80',
+      'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=900&q=80',
+      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80',
+      'https://images.unsplash.com/photo-1551830820-330a71b99659?w=900&q=80'
     ],
     specs: [
       { icon: 'seat',        label: 'Seating',      value: '7 Passengers' },
@@ -533,6 +533,29 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
     breakdown.appendChild(div);
   });
+
+  /* ── ADVANCE PAYMENT BOX (Tier-Based: 10% Sedan / 15% SUV+MUV / 20% Tempo+Bus) ── */
+  const ADVANCE_RATE_MAP = { sedan: 0.10, suv: 0.15, muv: 0.15, tempo: 0.20, bus: 0.20 };
+  const advRate    = ADVANCE_RATE_MAP[type] || 0.10;
+  const advanceAmt = Math.round(V.pricing.perDay * advRate);
+  const advPct     = Math.round(advRate * 100);
+
+  const advanceBox = document.createElement('div');
+  advanceBox.className = 'pricing-advance-box';
+  advanceBox.innerHTML = `
+    <div class="adv-icon">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="1" y="4" width="16" height="11" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M1 8h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="5" cy="12" r="1.2" fill="currentColor"/><path d="M9 12h5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+    </div>
+    <div class="adv-content">
+      <p class="adv-title">Advance to Confirm Booking</p>
+      <div class="adv-amount-row">
+        <span class="adv-amount">₹${advanceAmt.toLocaleString()}</span>
+        <span class="adv-pct-badge">${advPct}%</span>
+      </div>
+      <p class="adv-note">Balance due on the day of journey. Free cancellation 24h prior.</p>
+    </div>
+  `;
+  breakdown.insertAdjacentElement('afterend', advanceBox);
 
   /* ── PRICING MOBILE ── */
   const pricingMobileWrap = $('vdPricingMobile');

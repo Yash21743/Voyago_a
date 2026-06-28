@@ -681,3 +681,90 @@
   .vm-spec-card,
   .vm-feat-item { transition-duration: 0.01ms !important; }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   ADVANCE PAYMENT BANNER
+   Appears in the right panel, between pricing rows & note
+═══════════════════════════════════════════════════════════════ */
+
+.vm-advance-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 20px;
+  background: linear-gradient(135deg, rgba(217, 164, 65, 0.13) 0%, rgba(217, 164, 65, 0.05) 100%);
+  border-left: 3px solid var(--gold);
+  border-bottom: 1px solid rgba(217, 164, 65, 0.2);
+  flex-shrink: 0;
+  position: relative;
+}
+
+.vm-advance-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.4);
+  pointer-events: none;
+}
+
+.vm-advance-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(217, 164, 65, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9A7209;
+  flex-shrink: 0;
+  margin-top: 1px;
+  position: relative;
+}
+
+.vm-advance-content {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+}
+
+.vm-advance-title {
+  font-size: 10px;
+  font-weight: 800;
+  color: var(--maroon-dark);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+
+.vm-advance-desc {
+  font-size: 12px;
+  color: var(--charcoal);
+  line-height: 1.6;
+}
+
+#vmAdvanceAmt {
+  font-weight: 800;
+  color: var(--maroon);
+  font-size: 13.5px;
+}
+
+.vm-advance-pct-badge {
+  display: inline-flex;
+  align-items: center;
+  background: var(--gold);
+  color: var(--dark);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  padding: 2px 8px;
+  border-radius: 50px;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
+}
+
+/* Responsive — tighten on narrow mobile */
+@media (max-width: 480px) {
+  .vm-advance-banner { padding: 12px 14px; gap: 10px; }
+  .vm-advance-icon { width: 30px; height: 30px; }
+}
