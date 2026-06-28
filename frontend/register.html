@@ -1451,15 +1451,12 @@
             const strength = $('#strength');
             const strengthLabel = $('#strengthLabel');
             const matchIcon = $('#matchIcon');
+            const API = 'http://localhost:5000/api/human';
 
-            const EYE_OPEN =
-                '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>';
-            const EYE_OFF =
-                '<path d="M3 3l18 18"/><path d="M10.6 6.1A10.6 10.6 0 0 1 12 6c6.5 0 10 6 10 6a17 17 0 0 1-3.2 4M6.2 7.7A17 17 0 0 0 2 12s3.5 6 10 6c1.6 0 3-.3 4.2-.8"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/>';
-            const CHECK =
-                '<polyline points="4 12 10 18 20 6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/>';
-            const CROSS =
-                '<line x1="6" y1="6" x2="18" y2="18" stroke-linecap="round" stroke-width="2.5"/><line x1="18" y1="6" x2="6" y2="18" stroke-linecap="round" stroke-width="2.5"/>';
+            const EYE_OPEN = '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>';
+            const EYE_OFF = '<path d="M3 3l18 18"/><path d="M10.6 6.1A10.6 10.6 0 0 1 12 6c6.5 0 10 6 10 6a17 17 0 0 1-3.2 4M6.2 7.7A17 17 0 0 0 2 12s3.5 6 10 6c1.6 0 3-.3 4.2-.8"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/>';
+            const CHECK = '<polyline points="4 12 10 18 20 6" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/>';
+            const CROSS = '<line x1="6" y1="6" x2="18" y2="18" stroke-linecap="round" stroke-width="2.5"/><line x1="18" y1="6" x2="6" y2="18" stroke-linecap="round" stroke-width="2.5"/>';
 
             function bindToggle(btnId, iconId, input) {
                 $(btnId).addEventListener('click', () => {
@@ -1521,11 +1518,6 @@
                 }
             }
 
-            function generateAgencyId() {
-                const num = Math.floor(10000 + Math.random() * 90000);
-                return 'AGT-' + num;
-            }
-
             function setError(name, msg) {
                 const field = document.getElementById(name).closest('.field');
                 field.classList.add('has-error');
@@ -1536,121 +1528,260 @@
                 document.getElementById(name).closest('.field').classList.remove('has-error');
             }
 
-            const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            email.addEventListener('input', () => {
-                if (!email.value) { clearError('email'); return; }
-                if (emailRe.test(email.value.trim())) clearError('email');
-                else setError('email', 'Please enter a valid email address.');
-            });
-
-            phone.addEventListener('input', () => {
-                phone.value = phone.value.replace(/[^\d\s-]/g, '');
-                const digits = phone.value.replace(/\D/g, '');
-                if (!digits) { clearError('phone'); return; }
-                if (digits.length < 7 || digits.length > 15) {
-                    setError('phone', 'Phone must be 7–15 digits.');
-                } else clearError('phone');
-            });
-
-            fullname.addEventListener('input', () => {
-                if (fullname.value.trim().length >= 2) clearError('fullname');
-            });
-
-            function calcStrength(p) {
-                if (!p) return 0;
+            function checkStrength(val) {
                 let score = 0;
-                if (p.length >= 8) score++;
-                if (/[A-Z]/.test(p) && /[a-z]/.test(p)) score++;
-                if (/\d/.test(p)) score++;
-                if (/[^A-Za-z0-9]/.test(p)) score++;
-                if (p.length >= 12) score = Math.min(4, score + 0);
-                return Math.min(4, score);
+                if (val.length >= 8) score++;
+                if (/[a-z]/.test(val) && /[A-Z]/.test(val)) score++;
+                if (/\d/.test(val)) score++;
+                if (/[^a-zA-Z0-9]/.test(val)) score++;
+                return score;
             }
-            const STRENGTH_TEXT = ['Enter a password', 'Weak', 'Fair', 'Good', 'Strong'];
+
             password.addEventListener('input', () => {
-                const lvl = calcStrength(password.value);
-                strength.dataset.level = String(lvl);
-                strengthLabel.textContent = STRENGTH_TEXT[lvl];
-                if (password.value.length === 0 || password.value.length >= 8) clearError('password');
-                checkMatch();
+                const val = password.value;
+                clearError('password');
+
+                if (val.length > 0) {
+                    strength.style.display = 'flex';
+                    strength.style.flexDirection = 'column';
+                    strength.style.gap = '4px';
+                    let barHtml = '<div class="strength-bar"><span></span><span></span><span></span><span></span></div>';
+                    const lvl = checkStrength(val);
+                    const labels = ['', 'Weak', 'Fair', 'Good', 'Strong'];
+                    strength.innerHTML = barHtml + '<span class="strength-label">' + labels[lvl] + '</span>';
+                    strength.setAttribute('data-level', lvl);
+                } else {
+                    strength.style.display = 'none';
+                    strength.setAttribute('data-level', '0');
+                }
             });
 
-            function checkMatch() {
-                if (!confirm.value) {
-                    matchIcon.classList.remove('show', 'ok', 'bad');
-                    clearError('confirm');
-                    return;
-                }
-                if (confirm.value === password.value) {
-                    matchIcon.innerHTML = CHECK;
-                    matchIcon.classList.add('show', 'ok');
-                    matchIcon.classList.remove('bad');
-                    clearError('confirm');
+            confirm.addEventListener('input', () => {
+                clearError('confirm');
+                if (confirm.value.length > 0) {
+                    matchIcon.classList.add('show');
+                    if (confirm.value === password.value) {
+                        matchIcon.classList.add('ok');
+                        matchIcon.classList.remove('bad');
+                        matchIcon.innerHTML = CHECK;
+                    } else {
+                        matchIcon.classList.add('bad');
+                        matchIcon.classList.remove('ok');
+                        matchIcon.innerHTML = CROSS;
+                    }
                 } else {
-                    matchIcon.innerHTML = CROSS;
-                    matchIcon.classList.add('show', 'bad');
-                    matchIcon.classList.remove('ok');
-                    setError('confirm', 'Passwords do not match.');
+                    matchIcon.classList.remove('show', 'ok', 'bad');
                 }
-            }
-            confirm.addEventListener('input', checkMatch);
-            matchIcon.addEventListener('click', () => {
-                if (matchIcon.classList.contains('bad')) {
-                    confirm.value = '';
-                    confirm.focus();
-                    checkMatch();
-                }
+            });
+
+            [fullname, email, phone, agencyName, licenseNumber].forEach(el => {
+                el.addEventListener('input', () => clearError(el.id));
             });
 
             terms.addEventListener('change', () => {
                 signupBtn.disabled = !terms.checked;
             });
 
-            form.addEventListener('submit', (e) => {
+            form.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 let ok = true;
-                if (fullname.value.trim().length < 2) {
-                    setError('fullname',
-                        'Please enter your full name.');
-                    ok = false;
+
+                if (currentAccountType === 'individual') {
+                    if (fullname.value.trim().length < 2) {
+                        setError('fullname', 'Please enter your full name.');
+                        ok = false;
+                    }
+                } else {
+                    if (agencyName.value.trim().length < 2) {
+                        setError('agencyName', 'Please enter your agency name.');
+                        ok = false;
+                    }
+                    if (licenseNumber.value.trim().length < 3) {
+                        setError('licenseNumber', 'Please enter a valid license number.');
+                        ok = false;
+                    }
                 }
+
+                const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 if (!emailRe.test(email.value.trim())) {
-                    setError('email',
-                        'Please enter a valid email address.');
+                    setError('email', 'Please enter a valid email address.');
                     ok = false;
                 }
-                const digits = phone.value.replace(/\D/g, '');
-                if (digits.length < 7 || digits.length > 15) {
-                    setError('phone',
-                        'Phone must be 7–15 digits.');
+
+                if (!/^[0-9]{7,15}$/.test(phone.value.replace(/\D/g, ''))) {
+                    setError('phone', 'Please enter a valid phone number.');
                     ok = false;
                 }
-                if (calcStrength(password.value) < 2) {
-                    setError('password',
-                        'Choose a stronger password (8+ chars, mixed case, number).');
+
+                if (password.value.length < 8) {
+                    setError('password', 'Password must be at least 8 characters.');
+                    ok = false;
+                } else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(password.value)) {
+                    setError('password', 'Password must contain uppercase, lowercase, and a number.');
                     ok = false;
                 }
-                if (confirm.value !== password.value || !confirm.value) {
-                    setError('confirm',
-                        'Passwords do not match.');
+
+                if (confirm.value !== password.value) {
+                    setError('confirm', 'Passwords do not match.');
                     ok = false;
                 }
-                if (!terms.checked) { ok = false; }
+
+                if (!terms.checked) {
+                    ok = false;
+                }
 
                 if (!ok) {
-                    formPanel.classList.remove('shake');
-                    void formPanel.offsetWidth;
                     formPanel.classList.add('shake');
+                    setTimeout(() => formPanel.classList.remove('shake'), 500);
                     return;
                 }
 
                 signupBtn.classList.add('loading');
                 signupBtn.disabled = true;
                 signupBtn.querySelector('.btn-label').textContent = 'Creating account…';
-                setTimeout(() => {
-                    window.location.href = 'login.html';
-                }, 1500);
+
+                const body = {
+                    accountType: currentAccountType === 'agent' ? 'agent' : 'customer',
+                    email: email.value.trim(),
+                    phone: {
+                        countryCode: $('#countryCode').value,
+                        number: phone.value.replace(/\D/g, '')
+                    },
+                    password: password.value
+                };
+
+                if (currentAccountType === 'individual') {
+                    body.fullname = fullname.value.trim();
+                } else {
+                    body.agencyName = agencyName.value.trim();
+                    body.licenseNumber = licenseNumber.value.trim();
+                }
+
+                try {
+                    const res = await fetch(API + '/register', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(body)
+                    });
+
+                    const data = await res.json();
+
+                    if (!data.success) {
+                        if (data.errors && data.errors.length > 0) {
+                            data.errors.forEach(err => {
+                                const fieldMap = {
+                                    fullname: 'fullname',
+                                    agencyName: 'agencyName',
+                                    licenseNumber: 'licenseNumber',
+                                    email: 'email',
+                                    'phone.number': 'phone',
+                                    password: 'password'
+                                };
+                                const fieldId = fieldMap[err.field];
+                                if (fieldId) setError(fieldId, err.message);
+                            });
+                        } else {
+                            alert(data.message);
+                        }
+                        signupBtn.classList.remove('loading');
+                        signupBtn.disabled = false;
+                        signupBtn.querySelector('.btn-label').textContent = 'Create Account';
+                        formPanel.classList.add('shake');
+                        setTimeout(() => formPanel.classList.remove('shake'), 500);
+                        return;
+                    }
+
+                    localStorage.setItem('voyago_token', data.data.token);
+                    localStorage.setItem('voyago_user', JSON.stringify(data.data.user));
+
+                    if (data.data.user.accountType === 'agent') {
+                        alert('Agency account created! Your Agency ID is ' + data.data.user.agencyId + '. Save it for future logins.');
+                    }
+
+                    window.location.href = 'dashboard.html';
+
+                } catch (err) {
+                    alert('Network error. Please check your connection.');
+                    signupBtn.classList.remove('loading');
+                    signupBtn.disabled = false;
+                    signupBtn.querySelector('.btn-label').textContent = 'Create Account';
+                }
             });
+
+            function handleGoogleSignup() {
+                const accountType = currentAccountType === 'agent' ? 'agent' : 'customer';
+                googleSignup(accountType);
+            }
+
+            function googleSignup(accountType) {
+                signupBtn.classList.add('loading');
+                signupBtn.disabled = true;
+                signupBtn.querySelector('.btn-label').textContent = 'Connecting…';
+
+                try {
+                    google.accounts.id.initialize({
+                        client_id: 'YOUR_GOOGLE_CLIENT_ID_HERE',
+                        callback: async (response) => {
+                            try {
+                                const res = await fetch(API + '/google', {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify({
+                                        token: response.credential,
+                                        accountType: accountType
+                                    })
+                                });
+
+                                const data = await res.json();
+
+                                if (!data.success) {
+                                    alert(data.message);
+                                    signupBtn.classList.remove('loading');
+                                    signupBtn.disabled = false;
+                                    signupBtn.querySelector('.btn-label').textContent = 'Create Account';
+                                    return;
+                                }
+
+                                localStorage.setItem('voyago_token', data.data.token);
+                                localStorage.setItem('voyago_user', JSON.stringify(data.data.user));
+                                window.location.href = 'dashboard.html';
+                            } catch (err) {
+                                alert('Network error. Please check your connection.');
+                                signupBtn.classList.remove('loading');
+                                signupBtn.disabled = false;
+                                signupBtn.querySelector('.btn-label').textContent = 'Create Account';
+                            }
+                        },
+                        auto_select: false,
+                    });
+
+                    google.accounts.id.prompt((notification) => {
+                        if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+                            signupBtn.classList.remove('loading');
+                            signupBtn.disabled = false;
+                            signupBtn.querySelector('.btn-label').textContent = 'Create Account';
+                        }
+                    });
+                } catch (err) {
+                    signupBtn.classList.remove('loading');
+                    signupBtn.disabled = false;
+                    signupBtn.querySelector('.btn-label').textContent = 'Create Account';
+                }
+            }
+
+            const socialBtns = document.querySelectorAll('.social button');
+            socialBtns.forEach(btn => {
+                const label = btn.getAttribute('aria-label') || '';
+                if (label.includes('Google')) {
+                    btn.addEventListener('click', handleGoogleSignup);
+                }
+            });
+
+            const gsScript = document.createElement('script');
+            gsScript.src = 'https://accounts.google.com/gsi/client';
+            gsScript.async = true;
+            gsScript.defer = true;
+            document.head.appendChild(gsScript);
         })();
     </script>
 </body>

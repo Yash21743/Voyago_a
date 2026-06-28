@@ -955,6 +955,7 @@
             const tabs = document.querySelectorAll('.tab');
             const formRegion = $('#form-region');
             let currentTab = 'customer';
+            const API = 'http://localhost:5000/api/human';
 
             try {
                 if (localStorage.getItem('voyago_remember') === '1') {
@@ -981,7 +982,8 @@
                     if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
                         e.preventDefault();
                         const other = [...tabs].find(x => x !== t);
-                        other.focus(); switchTab(other.dataset.tab);
+                        other.focus();
+                        switchTab(other.dataset.tab);
                     }
                 });
             });
@@ -1019,23 +1021,37 @@
                 field.classList.add('has-error');
                 if (msg) document.getElementById(name + '-error').textContent = msg;
             }
+
             function clearError(name) {
                 document.getElementById(name).closest('.field').classList.remove('has-error');
             }
+
             identifier.addEventListener('input', () => clearError('identifier'));
             password.addEventListener('input', () => clearError('password'));
 
-            form.addEventListener('submit', (e) => {
+            form.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 let ok = true;
                 const idVal = identifier.value.trim();
+
                 if (currentTab === 'customer') {
                     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                    if (!re.test(idVal)) { setError('identifier', 'Please enter a valid email address.'); ok = false; }
+                    if (!re.test(idVal)) {
+                        setError('identifier', 'Please enter a valid email address.');
+                        ok = false;
+                    }
                 } else {
-                    if (idVal.length < 4) { setError('identifier', 'Agency ID must be at least 4 characters.'); ok = false; }
+                    if (idVal.length < 4) {
+                        setError('identifier', 'Agency ID must be at least 4 characters.');
+                        ok = false;
+                    }
                 }
-                if (password.value.length < 8) { setError('password', 'Password must be at least 8 characters.'); ok = false; }
+
+                if (password.value.length < 8) {
+                    setError('password', 'Password must be at least 8 characters.');
+                    ok = false;
+                }
+
                 if (!ok) return;
 
                 try {
@@ -1051,12 +1067,126 @@
                 loginBtn.classList.add('loading');
                 loginBtn.disabled = true;
                 loginBtn.querySelector('.btn-label').textContent = 'Signing in…';
-                setTimeout(() => {
+
+                try {
+                    const res = await fetch(API + '/login', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            accountType: currentTab === 'agent' ? 'agent' : 'customer',
+                            identifier: idVal,
+                            password: password.value,
+                            rememberMe: rememberCb.checked
+                        })
+                    });
+
+                    const data = await res.json();
+
+                    if (!data.success) {
+                        if (data.errors && data.errors.length > 0) {
+                            data.errors.forEach(err => {
+                                if (err.field === 'identifier') setError('identifier', err.message);
+                                else if (err.field === 'password') setError('password', err.message);
+                            });
+                        } else {
+                            if (data.message.toLowerCase().includes('email') || data.message.toLowerCase().includes('agency id')) {
+                                setError('identifier', data.message);
+                            } else if (data.message.toLowerCase().includes('password')) {
+                                setError('password', data.message);
+                            }
+                        }
+                        loginBtn.classList.remove('loading');
+                        loginBtn.disabled = false;
+                        loginBtn.querySelector('.btn-label').textContent = 'Log In';
+                        return;
+                    }
+
+                    localStorage.setItem('voyago_token', data.data.token);
+                    localStorage.setItem('voyago_user', JSON.stringify(data.data.user));
+                    window.location.href = 'dashboard.html';
+
+                } catch (err) {
+                    alert('Network error. Please check your connection.');
                     loginBtn.classList.remove('loading');
                     loginBtn.disabled = false;
                     loginBtn.querySelector('.btn-label').textContent = 'Log In';
-                }, 1500);
+                }
             });
+
+            function handleGoogleLogin() {
+                const accountType = currentTab === 'agent' ? 'agent' : 'customer';
+                googleLogin(accountType);
+            }
+
+            function googleLogin(accountType) {
+                loginBtn.classList.add('loading');
+                loginBtn.disabled = true;
+                loginBtn.querySelector('.btn-label').textContent = 'Connecting…';
+
+                try {
+                    google.accounts.id.initialize({
+                        client_id: 'YOUR_GOOGLE_CLIENT_ID_HERE',
+                        callback: async (response) => {
+                            try {
+                                const res = await fetch(API + '/google', {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify({
+                                        token: response.credential,
+                                        accountType: accountType
+                                    })
+                                });
+
+                                const data = await res.json();
+
+                                if (!data.success) {
+                                    alert(data.message);
+                                    loginBtn.classList.remove('loading');
+                                    loginBtn.disabled = false;
+                                    loginBtn.querySelector('.btn-label').textContent = 'Log In';
+                                    return;
+                                }
+
+                                localStorage.setItem('voyago_token', data.data.token);
+                                localStorage.setItem('voyago_user', JSON.stringify(data.data.user));
+                                window.location.href = 'dashboard.html';
+                            } catch (err) {
+                                alert('Network error. Please check your connection.');
+                                loginBtn.classList.remove('loading');
+                                loginBtn.disabled = false;
+                                loginBtn.querySelector('.btn-label').textContent = 'Log In';
+                            }
+                        },
+                        auto_select: false,
+                    });
+
+                    google.accounts.id.prompt((notification) => {
+                        if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+                            loginBtn.classList.remove('loading');
+                            loginBtn.disabled = false;
+                            loginBtn.querySelector('.btn-label').textContent = 'Log In';
+                        }
+                    });
+                } catch (err) {
+                    loginBtn.classList.remove('loading');
+                    loginBtn.disabled = false;
+                    loginBtn.querySelector('.btn-label').textContent = 'Log In';
+                }
+            }
+
+            const socialBtns = document.querySelectorAll('.social button');
+            socialBtns.forEach(btn => {
+                const label = btn.getAttribute('aria-label') || '';
+                if (label.includes('Google')) {
+                    btn.addEventListener('click', handleGoogleLogin);
+                }
+            });
+
+            const gsScript = document.createElement('script');
+            gsScript.src = 'https://accounts.google.com/gsi/client';
+            gsScript.async = true;
+            gsScript.defer = true;
+            document.head.appendChild(gsScript);
         })();
     </script>
 </body>
